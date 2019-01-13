@@ -237,7 +237,6 @@ public class JagaFragment extends Fragment {
     }
 
     private void showLoading(){
-        System.out.println("loading is showing ....");
         progressBar.setVisibility(View.VISIBLE);
     }
 
