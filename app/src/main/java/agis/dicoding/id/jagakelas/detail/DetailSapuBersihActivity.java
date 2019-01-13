@@ -1,13 +1,12 @@
 package agis.dicoding.id.jagakelas.detail;
 
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +21,7 @@ import agis.dicoding.id.jagakelas.model.SapuBersih;
 import agis.dicoding.id.jagakelas.model.SapuBersihRespone;
 import agis.dicoding.id.jagakelas.rest.ApiClient;
 import agis.dicoding.id.jagakelas.rest.ApiInterface;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +33,7 @@ public class DetailSapuBersihActivity extends AppCompatActivity {
     Boolean statusSapusBersih;
     List<SapuBersih> sapuBersih;
     Menu menu;
-    private ProgressBar progressBar;
+    private SweetAlertDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class DetailSapuBersihActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Sapu Bersih");
-        progressBar = findViewById(R.id.progressBar);
         showLoading();
 
         name = findViewById(R.id.nama);
@@ -170,11 +169,15 @@ public class DetailSapuBersihActivity extends AppCompatActivity {
     }
 
     private void showLoading(){
-        progressBar.setVisibility(View.VISIBLE);
+        loading = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        loading.getProgressHelper().setBarColor(Color.parseColor("#5893d4"));
+        loading.setTitleText("Loading");
+        loading.setCancelable(false);
+        loading.show();
     }
 
     private void hideLoading(){
-        progressBar.setVisibility(View.INVISIBLE);
+        loading.dismiss();
     }
 
 }

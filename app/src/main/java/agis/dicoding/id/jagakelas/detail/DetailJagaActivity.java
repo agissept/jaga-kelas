@@ -1,13 +1,12 @@
 package agis.dicoding.id.jagakelas.detail;
 
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +21,7 @@ import agis.dicoding.id.jagakelas.model.Jaga;
 import agis.dicoding.id.jagakelas.model.JagaResponse;
 import agis.dicoding.id.jagakelas.rest.ApiClient;
 import agis.dicoding.id.jagakelas.rest.ApiInterface;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +32,7 @@ public class DetailJagaActivity extends AppCompatActivity {
     Boolean statusJaga;
     List<Jaga> jaga;
     Menu menu;
-    private ProgressBar progressBar;
+    private SweetAlertDialog loading;
 
 
     @Override
@@ -42,7 +42,7 @@ public class DetailJagaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Jaga");
-        progressBar = findViewById(R.id.progressBar);
+
         showLoading();
 
         name = findViewById(R.id.nama);
@@ -169,10 +169,14 @@ public class DetailJagaActivity extends AppCompatActivity {
     }
 
     private void showLoading(){
-        progressBar.setVisibility(View.VISIBLE);
+        loading = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        loading.getProgressHelper().setBarColor(Color.parseColor("#5893d4"));
+        loading.setTitleText("Loading");
+        loading.setCancelable(false);
+        loading.show();
     }
 
     private void hideLoading(){
-        progressBar.setVisibility(View.INVISIBLE);
+        loading.dismiss();
     }
 }
